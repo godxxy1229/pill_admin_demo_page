@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="euc-kr">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Dashboard</title>
+  <link rel="stylesheet" href="admin_styles.css">
+</head>
+<body>
+  <h1>관리자 대시보드</h1>
+  
+  <!-- Tab navigation -->
+  <div class="tab">
+    <button class="tablinks" onclick="openTab(event, 'UserApproval')">가입승인</button>
+    <button class="tablinks" onclick="openTab(event, 'ServerManagement')">서버/서비스</button>
+    <button class="tablinks" onclick="openTab(event, 'ModelManagement')">모델</button>
+    <button class="tablinks" onclick="openTab(event, 'ChatbotManagement')">챗봇</button>
+  </div>
+
+  <!-- User Approval Section -->
+  <div id="UserApproval" class="tabcontent">
+    <h2>회원가입 승인/거절</h2>
+    
+    <!-- 상태 메시지 표시 영역 -->
+    <div id="status-message" style="display: none; color: #4caf50; font-weight: bold; margin-bottom: 15px;"></div>
+    
+    <!-- 요청 목록 (스크롤 가능) -->
+    <div id="user-requests" class="request-list">
+      <!-- 샘플 회원가입 요청들 -->
+      <div class="request-card">
+        <p><strong>회원명:</strong> alsghk</p>
+        <p><strong>가입 메시지:</strong> 캡스톤디자인 최민화입니다. 가입 승인 부탁드립니다!</p>
+        <button onclick="approveUser(this)">승인</button>
+        <button onclick="rejectUser(this)">거절</button>
+      </div>
+      
+      <div class="request-card">
+        <p><strong>회원명:</strong> Test11111111</p>
+        <p><strong>가입 메시지:</strong> 거절테스트용</p>
+        <button onclick="approveUser(this)">승인</button>
+        <button onclick="rejectUser(this)">거절</button>
+      </div>
+      
+      <div class="request-card">
+        <p><strong>회원명:</strong> Test55555555</p>
+        <p><strong>가입 메시지:</strong> 승인테스트용</p>
+        <button onclick="approveUser(this)">승인</button>
+        <button onclick="rejectUser(this)">거절</button>
+      </div>
+  
+      <!-- 추가적인 샘플 요청들 -->
+      <div class="request-card">
+        <p><strong>회원명:</strong> pill1224</p>
+        <p><strong>가입 메시지:</strong> 알약 모델 개발한거 올려드리겠습니당</p>
+        <button onclick="approveUser(this)">승인</button>
+        <button onclick="rejectUser(this)">거절</button>
+      </div>
+      
+      <div class="request-card">
+        <p><strong>회원명:</strong> dlathgml</p>
+        <p><strong>가입 메시지:</strong> 소희 계정 테스트</p>
+        <button onclick="approveUser(this)">승인</button>
+        <button onclick="rejectUser(this)">거절</button>
+      </div>
+
+      <div class="request-card">
+        <p><strong>회원명:</strong> godxxy</p>
+        <p><strong>가입 메시지:</strong> 가입부탁드려요^^</p>
+        <button onclick="approveUser(this)">승인</button>
+        <button onclick="rejectUser(this)">거절</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab content: Server Management -->
+  <div id="ServerManagement" class="tabcontent">
+    <h2>서버/서비스 탭 사용 방법</h2>
+    <h3>서버 상태 확인으로 상태 최신화<br>일시정지/구동으로 서비스 재시작 가능</h3>
+    
+    <!-- 로딩 애니메이션 -->
+    <div class="loading" id="loading-indicator" style="display: flex;">
+      <div class="spinner"></div>
+      <span>확인 중...</span>
+    </div>
+  
+    <button onclick="checkServerStatus()">서버 상태 확인</button>
+    
+    <div id="server1-control">
+      <h3>약물 위험 예측 서비스 상태(service1): <br><span id="server1-status">확인 중...</span></h3>
+      <button id="pause-server1" onclick="pauseServer('server1')" disabled>일시 정지</button>
+      <button id="start-server1" onclick="startServer('server1')">구동/재부팅</button>
+      <div class="progress" id="server1-progress" style="display: none;">
+        <div class="progress-bar" id="server1-progress-bar"></div>
+        <p id="server1-progress-text"></p>
+      </div>
+    </div>
+  
+    <div id="server2-control">
+      <h3>알약 이미지 예측 서비스 상태(service2): <br><span id="server2-status">확인 중...</span></h3>
+      <button id="pause-server2" onclick="pauseServer('server2')" disabled>일시 정지</button>
+      <button id="start-server2" onclick="startServer('server2')">구동/재부팅</button>
+      <div class="progress" id="server2-progress" style="display: none;">
+        <div class="progress-bar" id="server2-progress-bar"></div>
+        <p id="server2-progress-text"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Model Management Section -->
+  <div id="ModelManagement" class="tabcontent">
+    <h2>모델 관리</h2>
+    
+    <!-- Server1 모델 선택 및 관리 -->
+    <div id="server1-model-management">
+      <h3>service1 모델 관리(약물 위험도 예측, 약물 종류 분류)</h3>
+      <p>예측/분류모델이 동시에 실행되는 모델 선택할 것</p>
+      <label for="server1-model-select">구동 모델 선택:</label>
+      <select id="server1-model-select">
+        <option value="model_version_240520">mbti_ver1</option>
+        <option value="model_version_240520">mbti_ver2</option>
+        <option value="model_version_231010">model_version_231010</option>
+        <option value="model_version_240520">model_version_240520</option>
+        <option value="model_version_240520">new_model_version_163057</option>
+        <option value="model_version_240520">new_model_version_168223</option>
+      </select>
+      <button onclick="confirmModelSelection('server1')">확인</button>
+      <p id="server1-model-message"></p>
+    </div>
+    
+    <!-- Server2 모델 선택 및 관리 -->
+    <div id="server2-model-management">
+      <h3>service2 모델 관리(알약이미지 예측)</h3>
+      <label for="server2-model-select">구동 모델 선택:</label>
+      <select id="server2-model-select">
+        <option value="model_version_240520">pill_ver1</option>
+        <option value="model_version_240520">pill_ver2</option>
+        <option value="model_version_240520">pill_ver3_beta</option>
+        <option value="model_version_231010">model_version_231010</option>
+        <option value="model_version_240520">model_version_240520</option>
+        <option value="model_version_240520">new_model_version_163057</option>
+        <option value="model_version_240520">new_model_version_168223</option>
+      </select>
+      <button onclick="confirmModelSelection('server2')">확인</button>
+      <p id="server2-model-message"></p>
+    </div>
+  
+    <!-- 모델 업로드 -->
+    <h3>새로운 모델 업로드</h3>
+    <p>파일 업로드 시 종류에 관계없이 위 서비스 구동 모델 종류에 추가됩니다.<p>
+    <input type="file" id="model-upload" accept=".zip,.tar.gz">
+    <button onclick="uploadModel()">업로드</button>
+    <p id="upload-status">업로드 상태: 대기 중</p>
+  </div>
+  
+
+  <!-- Tab content: Chatbot Management -->
+  <div id="ChatbotManagement" class="tabcontent">
+    <h2>챗봇 프롬프트 관리</h2>
+    <p>현재 프롬프트:</p>
+    <textarea id="current-prompt" rows="8" cols="80">당신은 성격 검사 결과를 바탕으로 마약 중독 위험도를 진단하고 관련된 질문에 답변하도록 미세 조정되었습니다. NEO-FFI-R은 성격을 다섯 가지 주요 차원으로 평가하는 검사입니다. 학습된 모델을 바탕으로 다른 사람들의 마약 소비 위험도를 평균적으로 계산해 보니 18.26% 정도였어요. 마약 종류는 암페타민, 아밀 나이트레이트, 벤조디아제핀, 대마초, 코카인, 크랙 코카인, 엑스터시, 헤로인, 케타민, 니코틴, 합법적 최고치, LSD, 메스암페타민, 세머, VSA 등 총 15가지가 사용되었답니다. 신경성과 관련된 질문은 다음과 같아요:\n1. 나는 종종 다른 사람보다 열등감을 느낀다.\n2. 스트레스를 많이 받을 때, 가끔 내가 망가지는 듯한 느낌이 든다.\n3. 나는 내 자신이 특별히 '마음이 가볍다'고 생각하지 않는다.\n4. 나는 종종 긴장되고 불안해진다.\n5. 때때로 나는 완전히 쓸모없다고 느낀다.\n6. 나는 사람들이 나를 대하는 방식에 종종 화를 낸다.\n7. 때때로 나는 너무 부끄러워서 숨고 싶었다.\n8. 나는 두려움이나 불안감을 거의 느끼지 않는다.\n9. 나는 슬프거나 우울한 일이 거의 없다.\n10. 일이 잘못되면 낙담하고 포기하고 싶은 마음이 너무 자주 든다.\n11. 나는 내 자신이 특별히 '마음이 가볍다'고 생각하지 않는다.\n12. 나는 낙담하거나 좌절할 때가 많다. \n이 질문들을 통해 신경성을 측정하고 분석할 수 있답니다.</textarea>
+    <p>새 프롬프트 입력:</p>
+    <textarea id="new-prompt" rows="8" cols="80" placeholder="여기에 새 프롬프트 입력"></textarea>
+    <button onclick="updatePrompt()">Update Prompt</button>
+    <p id="prompt-status">프롬프트 상태: 정상 구동 중</p>
+  </div>
+
+  <script src="admin_scripts.js"></script>
+</body>
+</html>

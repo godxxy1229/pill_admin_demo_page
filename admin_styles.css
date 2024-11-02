@@ -1,0 +1,144 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background-color: #f9fafb;
+}
+
+h1, h2, h3 {
+  color: #333;
+  text-align: center;
+}
+
+.tab {
+  display: flex;
+  justify-content: center;
+  background-color: #4caf50;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.tab button {
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 14px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}  
+
+.tab button:hover {
+  background-color: #45a049;
+}
+
+.tab button.active {
+  background-color: #2e7d32;
+}
+
+.tabcontent {
+  display: none;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  max-width: 700px;
+  margin: 20px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tabcontent.active {
+  display: block;
+}
+
+.request-list {
+  max-height: 400px; /* 스크롤 가능한 최대 높이 설정 */
+  overflow-y: auto; /* 스크롤 활성화 */
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.request-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.request-card:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.request-card p {
+  margin: 5px 0;
+  color: #333;
+}
+
+button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+button + button {
+  margin-left: 5px;
+}
+
+button:hover:enabled {
+  background-color: #45a049;
+}
+
+button:disabled {
+  background-color: #bfbfbf;
+  cursor: not-allowed;
+}
+
+.progress {
+  width: 100%;
+  background-color: #ddd;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.progress-bar {
+  width: 0%;
+  height: 20px;
+  background-color: #4caf50;
+  transition: width 0.3s ease;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading span {
+  margin-left: 10px;
+  color: #333;
+}
+
+.spinner {
+  border: 4px solid #ddd;
+  border-top: 4px solid #4caf50;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
