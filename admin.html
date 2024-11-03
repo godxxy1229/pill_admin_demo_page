@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="euc-kr">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin - Dashboard</title>
   <link rel="stylesheet" href="admin_styles.css">
@@ -86,7 +86,8 @@
     <button onclick="checkServerStatus()">서버 상태 확인</button>
     
     <div id="server1-control">
-      <h3>약물 위험 예측 서비스 상태(service1): <br><span id="server1-status">확인 중...</span></h3>
+      <h3>약물 위험 예측 서비스 상태(service1): <span id="server1-status" class="status-light">확인 중...</span></h3>
+      <p>Ping: <span id="server1-ping">-</span></p>
       <button id="pause-server1" onclick="pauseServer('server1')" disabled>일시 정지</button>
       <button id="start-server1" onclick="startServer('server1')">구동/재부팅</button>
       <div class="progress" id="server1-progress" style="display: none;">
@@ -96,7 +97,8 @@
     </div>
   
     <div id="server2-control">
-      <h3>알약 이미지 예측 서비스 상태(service2): <br><span id="server2-status">확인 중...</span></h3>
+      <h3>알약 이미지 예측 서비스 상태(service2): <span id="server2-status" class="status-light">확인 중...</span></h3>
+      <p>Ping: <span id="server2-ping">-</span></p>
       <button id="pause-server2" onclick="pauseServer('server2')" disabled>일시 정지</button>
       <button id="start-server2" onclick="startServer('server2')">구동/재부팅</button>
       <div class="progress" id="server2-progress" style="display: none;">
