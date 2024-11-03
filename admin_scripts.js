@@ -1,142 +1,161 @@
 function approveUser(button) {
   const requestCard = button.parentElement;
-  requestCard.remove(); // ½ÂÀÎÇÑ ¿äÃ» Ä«µå¸¦ Á¦°Å
+  requestCard.remove(); // ìŠ¹ì¸í•œ ìš”ì²­ ì¹´ë“œë¥¼ ì œê±°
   
-  // µ¿ÀûÀ¸·Î ½ÂÀÎ ¸Ş½ÃÁö Ãß°¡
-  showStatusMessage("È¸¿ø°¡ÀÔÀÌ ½ÂÀÎµÇ¾ú½À´Ï´Ù.");
+  // ë™ì ìœ¼ë¡œ ìŠ¹ì¸ ë©”ì‹œì§€ ì¶”ê°€
+  showStatusMessage("íšŒì›ê°€ì…ì´ ìŠ¹ì¸ë˜ì—ˆìŠµë‹ˆë‹¤.");
   checkEmptyRequests();
 }
 
 function rejectUser(button) {
   const requestCard = button.parentElement;
-  requestCard.remove(); // °ÅÀıÇÑ ¿äÃ» Ä«µå¸¦ Á¦°Å
+  requestCard.remove(); // ê±°ì ˆí•œ ìš”ì²­ ì¹´ë“œë¥¼ ì œê±°
   
-  // µ¿ÀûÀ¸·Î °ÅÀı ¸Ş½ÃÁö Ãß°¡
-  showStatusMessage("È¸¿ø°¡ÀÔÀÌ °ÅÀıµÇ¾ú½À´Ï´Ù.");
+  // ë™ì ìœ¼ë¡œ ê±°ì ˆ ë©”ì‹œì§€ ì¶”ê°€
+  showStatusMessage("íšŒì›ê°€ì…ì´ ê±°ì ˆë˜ì—ˆìŠµë‹ˆë‹¤.");
   checkEmptyRequests();
 }
 
-// µ¿Àû »óÅÂ ¸Ş½ÃÁö¸¦ Ç¥½ÃÇÏ´Â ÇÔ¼ö
+// ë™ì  ìƒíƒœ ë©”ì‹œì§€ë¥¼ í‘œì‹œí•˜ëŠ” í•¨ìˆ˜
 function showStatusMessage(message) {
   const statusMessage = document.getElementById("status-message");
   statusMessage.innerText = message;
   statusMessage.style.display = "block";
   
-  // 3ÃÊ ÈÄ¿¡ ¸Ş½ÃÁö ¼û±â±â
+  // 3ì´ˆ í›„ì— ë©”ì‹œì§€ ìˆ¨ê¸°ê¸°
   setTimeout(() => {
     statusMessage.style.display = "none";
   }, 3000);
 }
 
-// ³²¾Æ ÀÖ´Â ¿äÃ»ÀÌ ¾øÀ¸¸é '¿äÃ»ÀÌ ¾ø½À´Ï´Ù' ¸Ş½ÃÁö Ç¥½Ã
+// ë‚¨ì•„ ìˆëŠ” ìš”ì²­ì´ ì—†ìœ¼ë©´ 'ìš”ì²­ì´ ì—†ìŠµë‹ˆë‹¤' ë©”ì‹œì§€ í‘œì‹œ
 function checkEmptyRequests() {
   const requestList = document.getElementById("user-requests");
   if (requestList.children.length === 0) {
-    requestList.innerHTML = "<p>³²Àº ¿äÃ»ÀÌ ¾ø½À´Ï´Ù.</p>";
+    requestList.innerHTML = "<p>ë‚¨ì€ ìš”ì²­ì´ ì—†ìŠµë‹ˆë‹¤.</p>";
   }
 }
 
-let serverStatus = { server1: "È°¼ºÈ­", server2: "È°¼ºÈ­" };
+let serverStatus = { server1: "í™œì„±í™”", server2: "í™œì„±í™”" };
 let progressIntervals = {};
 
-// DOMÀÌ ·ÎµåµÈ ÈÄ ±âº» ÅÇÀ» 'UserApproval'·Î ¼³Á¤ÇÏ°í, 'active' Å¬·¡½º¸¦ ¼öµ¿À¸·Î Ãß°¡
+// DOMì´ ë¡œë“œëœ í›„ ê¸°ë³¸ íƒ­ì„ 'UserApproval'ë¡œ ì„¤ì •í•˜ê³ , 'active' í´ë˜ìŠ¤ë¥¼ ìˆ˜ë™ìœ¼ë¡œ ì¶”ê°€
 document.addEventListener("DOMContentLoaded", () => {
   const userApprovalTab = document.querySelector(".tab button[data-tab='UserApproval']");
   
-  // ±âº» ÅÇÀ» ¿­°í, ¼öµ¿À¸·Î active Å¬·¡½º Ãß°¡
+  // ê¸°ë³¸ íƒ­ì„ ì—´ê³ , ìˆ˜ë™ìœ¼ë¡œ active í´ë˜ìŠ¤ ì¶”ê°€
   openTab({ currentTarget: userApprovalTab }, "UserApproval");
   userApprovalTab.classList.add("active");
 });
 
-// ÅÇ ÀüÈ¯ ÇÔ¼ö - Server Management ÅÇ Å¬¸¯ ½Ã ¼­¹ö »óÅÂ ÀÚµ¿ È®ÀÎ
+// íƒ­ ì „í™˜ í•¨ìˆ˜ - Server Management íƒ­ í´ë¦­ ì‹œ ì„œë²„ ìƒíƒœ ìë™ í™•ì¸
 function openTab(event, tabName) {
   let i, tabcontent, tablinks;
   
-  // ¸ğµç ÅÇ ÄÜÅÙÃ÷ ¼û±â±â
+  // ëª¨ë“  íƒ­ ì½˜í…ì¸  ìˆ¨ê¸°ê¸°
   tabcontent = document.getElementsByClassName("tabcontent");
   for (i = 0; i < tabcontent.length; i++) {
     tabcontent[i].style.display = "none";
   }
   
-  // ¸ğµç ÅÇ ¸µÅ© ºñÈ°¼ºÈ­
+  // ëª¨ë“  íƒ­ ë§í¬ ë¹„í™œì„±í™”
   tablinks = document.getElementsByClassName("tablinks");
   for (i = 0; i < tablinks.length; i++) {
     tablinks[i].classList.remove("active");
   }
   
-  // ¼±ÅÃÇÑ ÅÇ ÄÜÅÙÃ÷ Ç¥½Ã ¹× ÇöÀç ÅÇ ¹öÆ° È°¼ºÈ­
+  // ì„ íƒí•œ íƒ­ ì½˜í…ì¸  í‘œì‹œ ë° í˜„ì¬ íƒ­ ë²„íŠ¼ í™œì„±í™”
   document.getElementById(tabName).style.display = "block";
   if (event && event.currentTarget) {
     event.currentTarget.classList.add("active");
   }
 
-  // Server Management ÅÇÀÌ ¿­¸± ¶§ ¼­¹ö »óÅÂ ÀÚµ¿ È®ÀÎ
+  // Server Management íƒ­ì´ ì—´ë¦´ ë•Œ ì„œë²„ ìƒíƒœ ìë™ í™•ì¸
   if (tabName === "ServerManagement") {
     checkServerStatus();
   }
 }
 
-// ¼­¹ö »óÅÂ È®ÀÎ ÇÔ¼ö - ¼­¹ö »óÅÂ¿¡ µû¶ó ¿Ã¹Ù¸£°Ô Ç¥½Ã
+// ì„œë²„ ìƒíƒœ í™•ì¸ í•¨ìˆ˜ - ì„œë²„ ìƒíƒœì— ë”°ë¼ ì˜¬ë°”ë¥´ê²Œ í‘œì‹œ
 function checkServerStatus() {
   const loadingIndicator = document.getElementById("loading-indicator");
-  loadingIndicator.style.display = "flex"; // ·Îµù ¾Ö´Ï¸ŞÀÌ¼Ç Ç¥½Ã
+  loadingIndicator.style.display = "flex"; // ë¡œë”© ì• ë‹ˆë©”ì´ì…˜ í‘œì‹œ
 
   ["server1", "server2"].forEach((server) => {
     setTimeout(() => {
       const statusElement = document.getElementById(`${server}-status`);
+      const pingElement = document.getElementById(`${server}-ping`);
       const pauseButton = document.getElementById(`pause-${server}`);
 
-      // Àü¿ª º¯¼ö¿¡ ÀúÀåµÈ ¼­¹ö »óÅÂ¸¦ ±â¹İÀ¸·Î »óÅÂ Ç¥½Ã
-      if (serverStatus[server] === "ÀÏ½Ã Á¤Áö") {
-        statusElement.innerText = "ÀÏ½Ã Á¤ÁöµÊ";
+      // ì „ì—­ ë³€ìˆ˜ì— ì €ì¥ëœ ì„œë²„ ìƒíƒœë¥¼ ê¸°ë°˜ìœ¼ë¡œ ìƒíƒœ ë° ping í‘œì‹œ
+      if (serverStatus[server] === "ì¼ì‹œ ì •ì§€") {
+        statusElement.innerText = "ì¼ì‹œ ì •ì§€ë¨";
+        statusElement.classList.remove("active-light");
+        statusElement.classList.add("paused-light"); // ë¶‰ì€ ë¶ˆ í‘œì‹œ
         pauseButton.disabled = true;
+        pingElement.innerText = ""; // í•‘ ì •ë³´ ì—†ìŒ
       } else {
-        statusElement.innerText = "È°¼ºÈ­";
+        statusElement.innerText = "í™œì„±í™”";
+        statusElement.classList.remove("paused-light");
+        statusElement.classList.add("active-light"); // ì´ˆë¡ ë¶ˆ í‘œì‹œ
         pauseButton.disabled = false;
+
+        // í™œì„±í™” ìƒíƒœì¼ ë•Œ í•‘ì„ 10~13ms ì‚¬ì´ë¡œ ëœë¤ ë°˜í™˜
+        const pingValue = Math.floor(Math.random() * (13 - 10 + 1)) + 10;
+        pingElement.innerText = `${pingValue}ms`;
       }
 
-      // ·Îµù ¾Ö´Ï¸ŞÀÌ¼Ç ¼û±â±â (¸ğµç ¼­¹ö°¡ ¾÷µ¥ÀÌÆ®µÈ ÈÄ)
+      // ë¡œë”© ì• ë‹ˆë©”ì´ì…˜ ìˆ¨ê¸°ê¸° (ëª¨ë“  ì„œë²„ê°€ ì—…ë°ì´íŠ¸ëœ í›„)
       loadingIndicator.style.display = "none";
-    }, Math.random() * 1000 + 1000); // 1~2ÃÊ ³»¿¡ ·£´ıÀ¸·Î »óÅÂ ¾÷µ¥ÀÌÆ®
+    }, Math.random() * 1000 + 1000); // 1~2ì´ˆ ë‚´ì— ëœë¤ìœ¼ë¡œ ìƒíƒœ ì—…ë°ì´íŠ¸
   });
 }
 
-
-// ¼­¹ö ÀÏ½Ã Á¤Áö ÇÔ¼ö - »óÅÂ ¾÷µ¥ÀÌÆ®
+// ì„œë²„ ì¼ì‹œ ì •ì§€ í•¨ìˆ˜ - ìƒíƒœ ì—…ë°ì´íŠ¸
 function pauseServer(server) {
   setTimeout(() => {
-    serverStatus[server] = "ÀÏ½Ã Á¤Áö"; // Àü¿ª º¯¼ö¿¡ ¼­¹ö »óÅÂ¸¦ "ÀÏ½Ã Á¤Áö"·Î ¾÷µ¥ÀÌÆ®
-    document.getElementById(`${server}-status`).innerText = "ÀÏ½Ã Á¤ÁöµÊ";
+    // ì„œë²„ ìƒíƒœë¥¼ "ì¼ì‹œ ì •ì§€"ë¡œ ì—…ë°ì´íŠ¸
+    serverStatus[server] = "ì¼ì‹œ ì •ì§€";
+    const statusElement = document.getElementById(`${server}-status`);
+    statusElement.innerText = "ì¼ì‹œ ì •ì§€ë¨";
+    statusElement.classList.remove("active-light");
+    statusElement.classList.add("paused-light"); // ë¶‰ì€ ë¶ˆ í‘œì‹œ
+
+    // í•‘ ì •ë³´ì™€ ë²„íŠ¼ ìƒíƒœ ì—…ë°ì´íŠ¸
+    document.getElementById(`${server}-ping`).innerText = ""; // í•‘ ì •ë³´ ì—†ìŒ
     document.getElementById(`pause-${server}`).disabled = true;
-  }, Math.random() * 1000 + 1000); // 1~2ÃÊ ³»¿¡ ÀÏ½Ã Á¤Áö
+
+    // 2ì´ˆ í›„ ì„œë²„ ìƒíƒœ í™•ì¸ ìˆ˜í–‰
+    setTimeout(checkServerStatus, 2000); // 2ì´ˆ í›„ checkServerStatus í˜¸ì¶œ
+  }, 2000); // ì¼ì‹œ ì •ì§€ ì‹œê°„ì„ 2ì´ˆë¡œ ì„¤ì •
 }
 
-// ¼­¹ö ±¸µ¿ ÇÔ¼ö - ±¸µ¿ ½Ã »óÅÂ¸¦ "È°¼ºÈ­"·Î ¾÷µ¥ÀÌÆ®
+// ì„œë²„ êµ¬ë™ í•¨ìˆ˜ - êµ¬ë™ ì‹œ ìƒíƒœë¥¼ "í™œì„±í™”"ë¡œ ì—…ë°ì´íŠ¸
 function startServer(server) {
   const progressBar = document.getElementById(`${server}-progress-bar`);
   const progressText = document.getElementById(`${server}-progress-text`);
   const pauseButton = document.getElementById(`pause-${server}`);
   const progressContainer = document.getElementById(`${server}-progress`);
   
-  // ±¸µ¿ Áß¿¡´Â ÀÏ½Ã Á¤Áö ¹öÆ° ºñÈ°¼ºÈ­
+  // êµ¬ë™ ì¤‘ì—ëŠ” ì¼ì‹œ ì •ì§€ ë²„íŠ¼ ë¹„í™œì„±í™”
   pauseButton.disabled = true;
   progressContainer.style.display = "block";
   progressBar.style.width = "0%";
-  progressText.innerText = "±¸µ¿ ¿äÃ» Áß...";
+  progressText.innerText = "êµ¬ë™ ìš”ì²­ ì¤‘...";
 
   let steps = [
-    { text: "»óÅÂ È®ÀÎ", time: 1000, width: 5 },
-    { text: "¼­ºñ½º Àç½ÃÀÛ ¿äÃ» Àü¼ÛµÊ", time: 2000, width: 10 },
-    { text: "¼­ºñ½º ½ÃÀÛ", time: 1000, width: 15 },
-    { text: "Æ÷Æ®ÇÒ´ç: 5555", time: 600, width: 20 },
-    { text: "À¥¼­ºñ½º Àç½ÃÀÛÁßÀÔ´Ï´Ù. ¾à 20ÃÊ ¼Ò¿äµË´Ï´Ù.", time: 12000, width: 25 },
-    { text: "À¥¼­ºñ½º ½ÃÀÛµÊ. ¼­¹ö: service.biilab.kro.kr, Æ÷Æ®:5555", time: 3000, width: 20 },
-    { text: "¸ğµ¨ ±¸µ¿ ½ÃÀÛ", time: 1000, width: 30 },
-    { text: "¸ğµ¨ ÆÄÀÏ ·Îµù", time: 600, width: 30 },
-    { text: "¸ğµ¨ ·ÎµåµÊ", time: 5000, width: 50 },
-    { text: "¸ğµ¨ ÀÔÃâ·Â Å×½ºÆ®", time: 1000, width: 60 },
-    { text: "¼­ºñ½º È°¼ºÈ­µÊ", time: 600, width: 100 },
-    { text: "¼­ºñ½º È°¼ºÈ­µÊ: service.biilab.kro.kr:5555", time: 600, width: 100 }
+    { text: "ìƒíƒœ í™•ì¸", time: 1000, width: 5 },
+    { text: "ì„œë¹„ìŠ¤ ì¬ì‹œì‘ ìš”ì²­ ì „ì†¡ë¨", time: 2000, width: 10 },
+    { text: "ì„œë¹„ìŠ¤ ì‹œì‘", time: 1000, width: 15 },
+    { text: "í¬íŠ¸í• ë‹¹: 5555", time: 600, width: 20 },
+    { text: "ì›¹ì„œë¹„ìŠ¤ ì¬ì‹œì‘ì¤‘ì…ë‹ˆë‹¤. ì•½ 20ì´ˆ ì†Œìš”ë©ë‹ˆë‹¤.", time: 12000, width: 20 },
+    { text: "ì›¹ì„œë¹„ìŠ¤ ì‹œì‘ë¨. ì„œë²„: service.biilab.kro.kr, í¬íŠ¸:5555", time: 3000, width: 25 },
+    { text: "ëª¨ë¸ êµ¬ë™ ì‹œì‘", time: 1000, width: 30 },
+    { text: "ëª¨ë¸ íŒŒì¼ ë¡œë”©", time: 600, width: 30 },
+    { text: "ëª¨ë¸ ë¡œë“œë¨", time: 5000, width: 50 },
+    { text: "ëª¨ë¸ ì…ì¶œë ¥ í…ŒìŠ¤íŠ¸", time: 1000, width: 60 },
+    { text: "ì„œë¹„ìŠ¤ í™œì„±í™”ë¨", time: 600, width: 100 },
+    { text: "ì„œë¹„ìŠ¤ í™œì„±í™”ë¨: service.biilab.kro.kr:5555", time: 0, width: 100 }
   ];
 
   let progressIndex = 0;
@@ -150,10 +169,18 @@ function startServer(server) {
       if (time > 0) {
         setTimeout(nextStep, time);
       } else {
-        // ±¸µ¿ ¿Ï·á ÈÄ ¼­¹ö »óÅÂ¸¦ "È°¼ºÈ­"·Î ¾÷µ¥ÀÌÆ®
-        serverStatus[server] = "È°¼ºÈ­";
-        document.getElementById(`${server}-status`).innerText = "È°¼ºÈ­";
-        pauseButton.disabled = false; // ±¸µ¿ ¿Ï·á ÈÄ ÀÏ½Ã Á¤Áö ¹öÆ° È°¼ºÈ­
+        // êµ¬ë™ ì™„ë£Œ í›„ ì„œë²„ ìƒíƒœë¥¼ "í™œì„±í™”"ë¡œ ì—…ë°ì´íŠ¸
+        serverStatus[server] = "í™œì„±í™”";
+        const statusElement = document.getElementById(`${server}-status`);
+        statusElement.innerText = "í™œì„±í™”";
+
+        // êµ¬ë™ ì™„ë£Œ í›„ í•‘ ê°’ í‘œì‹œ
+        const pingValue = Math.floor(Math.random() * (13 - 10 + 1)) + 10;
+        document.getElementById(`${server}-ping`).innerText = `${pingValue}ms`;
+        
+        statusElement.classList.remove("paused-light");
+        statusElement.classList.add("active-light"); // ì´ˆë¡ ë¶ˆ í‘œì‹œ
+        pauseButton.disabled = false; // êµ¬ë™ ì™„ë£Œ í›„ ì¼ì‹œ ì •ì§€ ë²„íŠ¼ í™œì„±í™”
       }
 
       progressIndex++;
@@ -163,38 +190,38 @@ function startServer(server) {
   nextStep();
 }
 
-// ¼­¹öº° ¸ğµ¨ ¼±ÅÃ È®ÀÎ ÇÔ¼ö
+// ì„œë²„ë³„ ëª¨ë¸ ì„ íƒ í™•ì¸ í•¨ìˆ˜
 function confirmModelSelection(server) {
   const modelSelect = document.getElementById(`${server}-model-select`);
   const selectedModel = modelSelect.options[modelSelect.selectedIndex].text;
   const messageElement = document.getElementById(`${server}-model-message`);
   
-  messageElement.innerText = `¼­¹ö Àç±âµ¿ ½Ã ${selectedModel} ¸ğµ¨ÀÌ Àû¿ëµË´Ï´Ù.`;
+  messageElement.innerText = `ì„œë²„ ì¬ê¸°ë™ ì‹œ ${selectedModel} ëª¨ë¸ì´ ì ìš©ë©ë‹ˆë‹¤.`;
 }
 
-// ¸ğµ¨ ¾÷·Îµå ÇÔ¼ö - ·Îµù ¹× ÁøÇà »óÅÂ Ç¥½Ã
+// ëª¨ë¸ ì—…ë¡œë“œ í•¨ìˆ˜ - ë¡œë”© ë° ì§„í–‰ ìƒíƒœ í‘œì‹œ
 function uploadModel() {
   const uploadStatus = document.getElementById("upload-status");
   const server1ModelSelect = document.getElementById("server1-model-select");
   const server2ModelSelect = document.getElementById("server2-model-select");
   
-  uploadStatus.innerText = "¾÷·Îµå »óÅÂ: ½ÃÀÛ Áß...";
+  uploadStatus.innerText = "ì—…ë¡œë“œ ìƒíƒœ: ì‹œì‘ ì¤‘...";
   let progress = 0;
 
-  const initialDelay = 6000; // Ã³À½ 6ÃÊ µ¿¾È ¾÷·Îµå ÁßÁö »óÅÂ
-  const updateInterval = 2000; // ÀÌÈÄ 2ÃÊ °£°İÀ¸·Î ÁøÇà »óÅÂ ¾÷µ¥ÀÌÆ®
+  const initialDelay = 6000; // ì²˜ìŒ 6ì´ˆ ë™ì•ˆ ì—…ë¡œë“œ ì¤‘ì§€ ìƒíƒœ
+  const updateInterval = 2000; // ì´í›„ 2ì´ˆ ê°„ê²©ìœ¼ë¡œ ì§„í–‰ ìƒíƒœ ì—…ë°ì´íŠ¸
   
   setTimeout(() => {
     const interval = setInterval(() => {
-      // 15~25 »çÀÌÀÇ ·£´ı °ªÀ¸·Î ÁøÇà·ü Áõ°¡
+      // 15~25 ì‚¬ì´ì˜ ëœë¤ ê°’ìœ¼ë¡œ ì§„í–‰ë¥  ì¦ê°€
       const randomIncrease = Math.floor(Math.random() * (25 - 15 + 1)) + 15;
       progress += randomIncrease;
 
       if (progress >= 100) {
         clearInterval(interval);
-        uploadStatus.innerText = "¾÷·Îµå »óÅÂ: ¿Ï·á";
+        uploadStatus.innerText = "ì—…ë¡œë“œ ìƒíƒœ: ì™„ë£Œ";
         
-        // ¾÷·ÎµåÇÑ ¸ğµ¨À» °¢ ¼­¹öÀÇ ¸ğµ¨ ¼±ÅÃ ¿É¼Ç¿¡ Ãß°¡
+        // ì—…ë¡œë“œí•œ ëª¨ë¸ì„ ê° ì„œë²„ì˜ ëª¨ë¸ ì„ íƒ ì˜µì…˜ì— ì¶”ê°€
         const newModel = document.createElement("option");
         newModel.value = "new_model_version_" + new Date().getTime();
         newModel.text = newModel.value;
@@ -202,10 +229,10 @@ function uploadModel() {
         server1ModelSelect.appendChild(newModel.cloneNode(true));
         server2ModelSelect.appendChild(newModel);
       } else {
-        uploadStatus.innerText = `¾÷·Îµå »óÅÂ: ${progress}% ¿Ï·á`;
+        uploadStatus.innerText = `ì—…ë¡œë“œ ìƒíƒœ: ${progress}% ì™„ë£Œ`;
       }
     }, updateInterval);
-  }, initialDelay); // Ã³À½ 6ÃÊ ÀÌÈÄ¿¡ ¾÷·Îµå ÁøÇà ½ÃÀÛ
+  }, initialDelay); // ì²˜ìŒ 6ì´ˆ ì´í›„ì— ì—…ë¡œë“œ ì§„í–‰ ì‹œì‘
 }
 
 function updatePrompt() {
@@ -213,11 +240,11 @@ function updatePrompt() {
   if (newPrompt) {
     setTimeout(() => {
       document.getElementById("current-prompt").innerText = newPrompt;
-      document.getElementById("prompt-status").innerText = "ÇÁ·ÒÇÁÆ® »óÅÂ: Á¤»ó ±¸µ¿ Áß";
-      alert("ÇÁ·ÒÇÁÆ®°¡ ¾÷µ¥ÀÌÆ®µÇ¾ú½À´Ï´Ù!");
-    }, 8000); // 8ÃÊ ÈÄ ÇÁ·ÒÇÁÆ® ¾÷µ¥ÀÌÆ® ¿Ï·á
-    document.getElementById("prompt-status").innerText = "ÇÁ·ÒÇÁÆ® ¾÷µ¥ÀÌÆ® Áß...";
+      document.getElementById("prompt-status").innerText = "í”„ë¡¬í”„íŠ¸ ìƒíƒœ: ì •ìƒ êµ¬ë™ ì¤‘";
+      alert("í”„ë¡¬í”„íŠ¸ê°€ ì—…ë°ì´íŠ¸ë˜ì—ˆìŠµë‹ˆë‹¤!");
+    }, 8000); // 8ì´ˆ í›„ í”„ë¡¬í”„íŠ¸ ì—…ë°ì´íŠ¸ ì™„ë£Œ
+    document.getElementById("prompt-status").innerText = "í”„ë¡¬í”„íŠ¸ ì—…ë°ì´íŠ¸ ì¤‘...";
   } else {
-    alert("»õ ÇÁ·ÒÇÁÆ®¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+    alert("ìƒˆ í”„ë¡¬í”„íŠ¸ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.");
   }
 }
