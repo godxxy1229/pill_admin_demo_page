@@ -49,8 +49,8 @@ h1, h2, h3 {
 }
 
 .request-list {
-  max-height: 400px; /* ��ũ�� ������ �ִ� ���� ���� */
-  overflow-y: auto; /* ��ũ�� Ȱ��ȭ */
+  max-height: 400px; /* 스크롤 가능한 최대 높이 설정 */
+  overflow-y: auto; /* 스크롤 활성화 */
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -101,6 +101,34 @@ button:hover:enabled {
 button:disabled {
   background-color: #bfbfbf;
   cursor: not-allowed;
+}
+
+.status-light-container {
+  display: flex;
+  align-items: center;
+}
+
+.status-light {
+  display: inline-flex;
+  align-items: center; /* 아이콘과 텍스트가 수직으로 가운데 정렬 */
+  gap: 5px; /* 아이콘과 텍스트 사이 간격 */
+  vertical-align: middle; /* 부모 요소 안에서 수직 가운데 정렬 */
+  width: auto; /* 가로 공간을 텍스트에 맞춤 */
+  height: auto;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+}
+
+.active-light {
+  background: linear-gradient(135deg, #a8e063, #56ab2f); /* 밝은 초록 그라데이션 */
+}
+
+.paused-light {
+  background: linear-gradient(135deg, #ff6b6b, #d64545); /* 밝은 빨강 그라데이션 */
+}
+
+.status-text {
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .progress {
