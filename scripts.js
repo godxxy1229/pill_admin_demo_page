@@ -9,9 +9,9 @@ function showLogin() {
 }
 
 function login() {
-  document.getElementById('login-form').innerHTML = "<div class='loading'><div class='spinner'></div><span>·Î±×ÀÎ Áß...</span></div>";
+  document.getElementById('login-form').innerHTML = "<div class='loading'><div class='spinner'></div><span>ë¡œê·¸ì¸ ì¤‘...</span></div>";
   setTimeout(() => {
-    alert('°ü¸®ÀÚ·Î ·Î±×ÀÎ µÇ¾ú½À´Ï´Ù.');
+    alert('ê´€ë¦¬ì ê¶Œí•œìœ¼ë¡œ ë¡œê·¸ì¸ë˜ì—ˆìŠµë‹ˆë‹¤.');
     window.location.href = 'admin.html';
   }, 1500);
 }
@@ -23,20 +23,20 @@ function signup() {
   const message = document.getElementById("signup-message").value;
   
   if (username && password && email) {
-    // ·Îµù È­¸é Ç¥½Ã
+    // ë¡œë”© í™”ë©´ í‘œì‹œ
     document.getElementById('signup-form').innerHTML = `
       <div class='loading'>
         <div class='spinner'></div>
-        <span>È¸¿ø°¡ÀÔ ½ÅÃ» ÁøÇàÁß...</span>
+        <span>íšŒì›ê°€ì… ì‹ ì²­ ì§„í–‰ì¤‘...</span>
       </div>
     `;
     
-    // 3ÃÊ ÈÄ¿¡ È¸¿ø°¡ÀÔ ¿Ï·á ¸Ş½ÃÁö Ç¥½Ã
+    // 3ì´ˆ í›„ì— íšŒì›ê°€ì… ì™„ë£Œ ë©”ì‹œì§€ í‘œì‹œ
     setTimeout(() => {
-      alert(`È¸¿ø°¡ÀÔ ½ÅÃ»ÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù!\n\n¾ÆÀÌµğ: ${username}\nÀÌ¸ŞÀÏ: ${email}\n°¡ÀÔ¸Ş¼¼Áö: ${message}`);
-      showLogin(); // È¸¿ø°¡ÀÔ ÈÄ ·Î±×ÀÎ È­¸éÀ¸·Î µ¹¾Æ°¨
-    }, 2400); // 3ÃÊ µ¿¾È ·Îµù Ç¥½Ã
+      alert(`íšŒì›ê°€ì… ì‹ ì²­ì´ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤!\n\nì•„ì´ë””: ${username}\nì´ë©”ì¼: ${email}\nê°€ì…ë©”ì„¸ì§€: ${message}`);
+      showLogin(); // íšŒì›ê°€ì… í›„ ë¡œê·¸ì¸ í™”ë©´ìœ¼ë¡œ ëŒì•„ê°
+    }, 2400); // 3ì´ˆ ë™ì•ˆ ë¡œë”© í‘œì‹œ
   } else {
-    alert("¸ğµç ÇÊ¼ö Á¤º¸¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä.");
+    alert("ëª¨ë“  í•„ìˆ˜ ì •ë³´ë¥¼ ì…ë ¥í•´ ì£¼ì„¸ìš”.");
   }
 }
